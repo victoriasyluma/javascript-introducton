@@ -1,0 +1,51 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+#clock-border {
+  height: 100px;
+  width: 100px;
+  border: 1px solid darkblue;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+#clock-line {
+  width: 1px;
+  background-image: linear-gradient(darkblue 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.rotate-seconds {
+  animation: spinner 1s linear infinite;
+}
+.rotate-minute {
+  animation: spinner 60s linear infinite;
+}
+.rotate-hours {
+  animation: spinner 3600s linear infinite;
+}
+#clock-line2 {
+  width: 1px;
+  background-image: linear-gradient(darkblue 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+#clock-line3 {
+  width: 1px;
+  background-image: linear-gradient(darkblue 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}

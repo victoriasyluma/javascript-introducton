@@ -1,0 +1,65 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+@clock-diameter: 100px;
+@stroke-color: darkblue;
+@seconds-line-rotation-speed: 1s;
+@minutes-line-rotation-speed: 60s;
+@hours-line-rotation-speed: 3600s;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#clock-border {
+  height: @clock-diameter;
+  width: @clock-diameter;
+  border: 1px solid @stroke-color;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+#clock-line {
+  width: 1px;
+  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-seconds {
+  animation: spinner @seconds-line-rotation-speed linear infinite;
+}
+.rotate-minute {
+  animation: spinner @minutes-line-rotation-speed linear infinite;
+}
+
+.rotate-hours {
+  animation: spinner @hours-line-rotation-speed linear infinite;
+}
+
+#clock-line2 {
+  width: 1px;
+  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}
+
+#clock-line3 {
+  width: 1px;
+  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
+  border-radius: 50%;
+  transform: rotate(30deg);
+}

@@ -1,65 +1,272 @@
-body,
-html {
+html,
+body {
   margin: 0;
   padding: 0;
-}
-
-@clock-diameter: 100px;
-@stroke-color: darkblue;
-@seconds-line-rotation-speed: 1s;
-@minutes-line-rotation-speed: 60s;
-@hours-line-rotation-speed: 3600s;
-
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
 }
 
-#clock-border {
-  height: @clock-diameter;
-  width: @clock-diameter;
-  border: 1px solid @stroke-color;
-  border-radius: 50%;
+body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, rgb(216, 209, 209), rgb(121, 121, 160));
 }
 
-#clock-line {
-  width: 1px;
-  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
+@clock-diameter: 200px;
+// @seconds-speed: 60s;
+// @minutes-speed: 7200s;
+// @hours-speed: 86400s;
+
+@seconds-speed: 6s;
+@minutes-speed: 72s;
+@hours-speed: 10s;
+
+.simple-square(@color) {
+  width: @clock-diameter;
+  height: @clock-diameter;
+  background-color: @color;
+}
+
+.position-absolute(@top, @left) {
+  position: absolute;
+  top: @top;
+  left: @left;
+}
+
+.full-content(@value: 100%) {
+  width: @value;
+  height: @value;
+}
+
+.circle() {
   border-radius: 50%;
-  transform: rotate(30deg);
 }
 
-@keyframes spinner {
-  100% {
+@keyframes spin {
+  to {
     transform: rotate(360deg);
   }
 }
 
-.rotate-seconds {
-  animation: spinner @seconds-line-rotation-speed linear infinite;
-}
-.rotate-minute {
-  animation: spinner @minutes-line-rotation-speed linear infinite;
+@keyframes spin-lef {
+  25% {
+    transform: rotateY(-15deg) rotateZ(-10deg);
+  }
+
+  75% {
+    transform: rotateY(15deg) rotateZ(10deg);
+  }
 }
 
-.rotate-hours {
-  animation: spinner @hours-line-rotation-speed linear infinite;
+.spin(@speed, @initial: 0) {
+  animation: spin @speed linear infinite;
 }
 
-#clock-line2 {
-  width: 1px;
-  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
-  border-radius: 50%;
-  transform: rotate(30deg);
+.spin-left(@speed, @initial: 0) {
+  animation: spin-lef @speed ease infinite;
 }
 
-#clock-line3 {
-  width: 1px;
-  background-image: linear-gradient(@stroke-color 50%, transparent 50%);
-  border-radius: 50%;
-  transform: rotate(30deg);
+.simple-square {
+  position: relative;
+  .simple-square(transparent);
+  .spin-left(5s);
+
+  .clock-point-container {
+    z-index: 90;
+    .full-content();
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    span {
+      .circle();
+      background-color: black;
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  .clock-border-container {
+    .full-content();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .clock-border {
+      .full-content(calc(100% - 4px));
+      border: solid 3px black;
+      .circle();
+      box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.275);
+    }
+
+    .clock-border-2 {
+      .circle();
+      position: absolute;
+      .full-content(calc(100% + 10px));
+      border: 1px solid black;
+      box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.275);
+    }
+  }
+
+  .lines-container {
+    .full-content();
+    position: absolute;
+    top: 0;
+    z-index: 10;
+
+    .line-container {
+      .full-content();
+      position: absolute;
+      display: flex;
+      justify-content: center;
+
+      div {
+        height: 50%;
+        width: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: end;
+
+        max-height: calc(100% - 10px);
+        max-width: 4px;
+      }
+    }
+
+    // -- hours
+    .line-one {
+      .spin(@hours-speed, 90deg);
+
+      span {
+        height: calc(100% - 10px);
+        width: 100%;
+
+        background-color: white;
+        border: 1px solid black;
+      }
+    }
+
+    .line-two {
+      .spin(@minutes-speed);
+
+      span {
+        background-color: white;
+
+        height: calc(100% - 20px);
+        width: 100%;
+        border: 2px solid black;
+      }
+    }
+
+    .line-three {
+      .spin(@seconds-speed);
+
+      span {
+        height: calc(100% - 10px);
+        width: 1px;
+        background-color: black;
+      }
+    }
+  }
+
+  .clock-numbers-container {
+    .full-content();
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .number-twelve {
+      position: absolute;
+      top: 0;
+    }
+
+    .number-six {
+      position: absolute;
+      bottom: 0;
+    }
+
+    .number-three {
+      position: absolute;
+      right: 6px;
+    }
+
+    .number-nine {
+      position: absolute;
+      left: 6px;
+    }
+  }
+
+  .clock-center-container {
+    .full-content();
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(-1deg);
+    background-color: beige;
+    opacity: 0.5;
+    .circle();
+    overflow: hidden;
+
+    span {
+      .full-content(calc(100% - 35px));
+
+      background-image: repeating-conic-gradient(
+        black 0deg 1deg,
+        transparent 0deg 30deg
+      );
+    }
+  }
+
+  .clock-brazalete-container {
+    .full-content();
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+
+    .brazalete {
+      .full-content();
+      height: 1000px;
+      width: calc(100% - 30px);
+      background-color: black;
+      position: absolute;
+      z-index: 100;
+      border: 2px solid black;
+    }
+
+    .brazalete-one {
+      top: -1018px;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      background-image: linear-gradient(
+        to bottom,
+        rgb(81, 36, 36) 10px,
+        black,
+        rgb(81, 36, 36),
+        black
+      );
+      border-top: solid 10px black;
+      box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.096);
+    }
+
+    .brazalete-two {
+      top: @clock-diameter + 8px;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      background-image: linear-gradient(
+        to top,
+        rgb(81, 36, 36) 10px,
+        black,
+        rgb(81, 36, 36),
+        black
+      );
+      border-bottom: solid 10px black;
+      box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.096);
+    }
+  }
 }

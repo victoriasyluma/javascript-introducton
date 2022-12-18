@@ -1,51 +1,197 @@
-body,
-html {
+html,
+body {
   margin: 0;
   padding: 0;
-}
-.container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 100%;
 }
-#clock-border {
-  height: 100px;
-  width: 100px;
-  border: 1px solid darkblue;
-  border-radius: 50%;
+body {
   display: flex;
   justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #d8d1d1, #7979a0);
 }
-#clock-line {
-  width: 1px;
-  background-image: linear-gradient(darkblue 50%, transparent 50%);
-  border-radius: 50%;
-  transform: rotate(30deg);
-}
-@keyframes spinner {
-  100% {
+@keyframes spin {
+  to {
     transform: rotate(360deg);
   }
 }
-.rotate-seconds {
-  animation: spinner 1s linear infinite;
+@keyframes spin-lef {
+  25% {
+    transform: rotateY(-15deg) rotateZ(-10deg);
+  }
+  75% {
+    transform: rotateY(15deg) rotateZ(10deg);
+  }
 }
-.rotate-minute {
-  animation: spinner 60s linear infinite;
+.simple-square {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: transparent;
+  animation: spin-lef 5s ease infinite;
 }
-.rotate-hours {
-  animation: spinner 3600s linear infinite;
+.simple-square .clock-point-container {
+  z-index: 90;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#clock-line2 {
-  width: 1px;
-  background-image: linear-gradient(darkblue 50%, transparent 50%);
+.simple-square .clock-point-container span {
   border-radius: 50%;
-  transform: rotate(30deg);
+  background-color: black;
+  width: 8px;
+  height: 8px;
 }
-#clock-line3 {
-  width: 1px;
-  background-image: linear-gradient(darkblue 50%, transparent 50%);
+.simple-square .clock-border-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.simple-square .clock-border-container .clock-border {
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: solid 3px black;
   border-radius: 50%;
-  transform: rotate(30deg);
+  box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.275);
+}
+.simple-square .clock-border-container .clock-border-2 {
+  border-radius: 50%;
+  position: absolute;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  border: 1px solid black;
+  box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.275);
+}
+.simple-square .lines-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+}
+.simple-square .lines-container .line-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+}
+.simple-square .lines-container .line-container div {
+  height: 50%;
+  width: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  max-height: calc(100% - 10px);
+  max-width: 4px;
+}
+.simple-square .lines-container .line-one {
+  animation: spin 10s linear infinite;
+}
+.simple-square .lines-container .line-one span {
+  height: calc(100% - 10px);
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+}
+.simple-square .lines-container .line-two {
+  animation: spin 72s linear infinite;
+}
+.simple-square .lines-container .line-two span {
+  background-color: white;
+  height: calc(100% - 20px);
+  width: 100%;
+  border: 2px solid black;
+}
+.simple-square .lines-container .line-three {
+  animation: spin 6s linear infinite;
+}
+.simple-square .lines-container .line-three span {
+  height: calc(100% - 10px);
+  width: 1px;
+  background-color: black;
+}
+.simple-square .clock-numbers-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.simple-square .clock-numbers-container .number-twelve {
+  position: absolute;
+  top: 0;
+}
+.simple-square .clock-numbers-container .number-six {
+  position: absolute;
+  bottom: 0;
+}
+.simple-square .clock-numbers-container .number-three {
+  position: absolute;
+  right: 6px;
+}
+.simple-square .clock-numbers-container .number-nine {
+  position: absolute;
+  left: 6px;
+}
+.simple-square .clock-center-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-1deg);
+  background-color: beige;
+  opacity: 0.5;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.simple-square .clock-center-container span {
+  width: calc(100% - 35px);
+  height: calc(100% - 35px);
+  background-image: repeating-conic-gradient(black 0deg 1deg, transparent 0deg 30deg);
+}
+.simple-square .clock-brazalete-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+}
+.simple-square .clock-brazalete-container .brazalete {
+  width: 100%;
+  height: 100%;
+  height: 1000px;
+  width: calc(100% - 30px);
+  background-color: black;
+  position: absolute;
+  z-index: 100;
+  border: 2px solid black;
+}
+.simple-square .clock-brazalete-container .brazalete-one {
+  top: -1018px;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background-image: linear-gradient(to bottom, #512424 10px, black, #512424, black);
+  border-top: solid 10px black;
+  box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.096);
+}
+.simple-square .clock-brazalete-container .brazalete-two {
+  top: 208px;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  background-image: linear-gradient(to top, #512424 10px, black, #512424, black);
+  border-bottom: solid 10px black;
+  box-shadow: 10px 10px 2px 2px rgba(0, 0, 0, 0.096);
 }
